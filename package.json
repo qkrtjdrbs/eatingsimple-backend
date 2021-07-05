@@ -1,0 +1,19 @@
+{
+  "name": "eatingsimple",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qkrtjdrbs/eatingsimple-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qkrtjdrbs/eatingsimple-backend/issues"
+  },
+  "homepage": "https://github.com/qkrtjdrbs/eatingsimple-backend#readme"
+}
