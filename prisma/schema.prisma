@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  username  String    @unique
+  email     String    @unique
+  password  String
+  bio       String?
+  avatar    String?
+  recipes   Recipe[]
+  likes     Like[]
+  photos    Photo[]
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Recipe {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String
+  User      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  photos    Photo[]
+  likes     Like[]
+  Comment   Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  file      String
+  caption   String?
+  Recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  User      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  Recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([recipeId, userId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+  payload   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
