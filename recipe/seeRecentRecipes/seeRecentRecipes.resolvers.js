@@ -2,7 +2,7 @@ import client from "../../client";
 
 export default {
   Query: {
-    seeRecentRecipe: (_, __) =>
+    seeRecentRecipes: (_, __) =>
       client.recipe.findMany({
         orderBy: {
           createdAt: "desc",
