@@ -1,13 +1,10 @@
 import client from "../client";
 
 export default {
-  Recipe: {
-    photos: ({ id }) => client.photo.findMany({ where: { recipeId: id } }),
+  Comment: {
     user: ({ userId }) => client.user.findUnique({ where: { id: userId } }),
-    comments: ({ id }) =>
-      client.comment.findMany({ where: { recipe: { id } } }),
-    commentsCount: ({ id }) =>
-      client.comment.count({ where: { recipe: { id } } }),
+    recipe: ({ recipeId }) =>
+      client.recipe.findUnique({ where: { id: recipeId } }),
     isMine: ({ userId }, _, { loggedInUser }) => {
       if (!loggedInUser) return false;
       return userId === loggedInUser.id;

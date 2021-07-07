@@ -8,6 +8,9 @@ export default gql`
     photos: [Photo]
     user: User!
     userId: Int!
+    comments: [Comment]
+    commentsCount: Int!
+    isMine: Boolean!
     createdAt: String!
     updatedAt: String
   }
