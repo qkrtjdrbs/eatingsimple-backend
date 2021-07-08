@@ -5,5 +5,6 @@ export default gql`
   type MutationResult {
     ok: Boolean!
     error: String
+    id: Int
   }
 `;
