@@ -9,5 +9,6 @@ export default {
       if (!loggedInUser) return false;
       return userId === loggedInUser.id;
     },
+    likes: ({ id }) => client.commentLike.count({ where: { commentId: id } }),
   },
 };

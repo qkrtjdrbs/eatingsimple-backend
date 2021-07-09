@@ -11,6 +11,7 @@ export default gql`
     comments: [Comment]
     commentsCount: Int!
     isMine: Boolean!
+    likes: Int!
     createdAt: String!
     updatedAt: String
   }

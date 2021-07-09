@@ -12,5 +12,6 @@ export default {
       if (!loggedInUser) return false;
       return userId === loggedInUser.id;
     },
+    likes: ({ id }) => client.recipeLike.count({ where: { recipeId: id } }),
   },
 };
