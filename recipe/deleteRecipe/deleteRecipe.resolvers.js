@@ -3,8 +3,12 @@ import { protectedResolver } from "../../user/user.utils";
 
 export default {
   Mutation: {
-    deleteRecipe: protectedResolver(async (_, { id }) => {
+    deleteRecipe: protectedResolver(async (_, { id }, { loggedInUser }) => {
       try {
+        const user = await client.recipe.findUnique({
+          where: { id },
+        });
+        if (user.userId !== loggedInUser.id) throw new Error("Not Authorized");
         const comments = await client.comment.findMany({
           where: { recipeId: id },
         });
