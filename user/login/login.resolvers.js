@@ -11,14 +11,14 @@ export default {
       if (!user) {
         return {
           ok: false,
-          error: "User not exist.",
+          error: "존재하지 않는 유저입니다",
         };
       }
       const isValidPw = await bcrypt.compare(password, user.password);
       if (!isValidPw) {
         return {
           ok: false,
-          error: "Incorrect Password.",
+          error: "잘못된 패스워드입니다",
         };
       }
       const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
