@@ -1,5 +1,6 @@
 import client from "../../client";
 import bcrypt from "bcrypt";
+import { uploadToS3 } from "../../shared/shared.utils";
 
 export default {
   Mutation: {
@@ -16,7 +17,7 @@ export default {
         }
         // hash password
         const uglyPassword = await bcrypt.hash(password, 10);
-        await client.user.create({
+        const newUser = await client.user.create({
           data: {
             username,
             email,
@@ -25,13 +26,21 @@ export default {
             password: uglyPassword,
           },
         });
+        let newAvatar = null;
+        if (avatar) {
+          newAvatar = await uploadToS3(avatar, newUser.id, "avatar");
+          await client.user.update({
+            where: { id: newUser.id },
+            data: { avatar: newAvatar },
+          });
+        }
         return {
           ok: true,
         };
       } catch (e) {
         return {
           ok: false,
-          error: "Can't create account.",
+          error: e.message,
         };
       }
     },
