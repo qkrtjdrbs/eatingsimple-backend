@@ -9,11 +9,17 @@ export default {
       { username, email, password, name, avatar, bio }
     ) => {
       try {
-        const isNotValid = await client.user.findFirst({
-          where: { OR: [{ username }, { email }] },
+        const existUsername = await client.user.findUnique({
+          where: { username },
         });
-        if (isNotValid) {
-          throw new Error("This username or email already exist.");
+        if (existUsername) {
+          throw new Error("이미 존재하는 아이디입니다");
+        }
+        const existEmail = await client.user.findUnique({
+          where: { email },
+        });
+        if (existEmail) {
+          throw new Error("이미 존재하는 이메일입니다");
         }
         // hash password
         const uglyPassword = await bcrypt.hash(password, 10);
