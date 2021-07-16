@@ -28,7 +28,7 @@ export default {
         });
         let newAvatar = null;
         if (avatar) {
-          newAvatar = await uploadToS3(avatar, newUser.id, "avatar");
+          newAvatar = await uploadToS3(avatar[0], newUser.id, "avatars");
           await client.user.update({
             where: { id: newUser.id },
             data: { avatar: newAvatar },
