@@ -10,7 +10,6 @@ export default gql`
     bio: String
     avatar: String
     isMe: Boolean!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: DateTime!
   }
 `;

@@ -10,6 +10,6 @@ export default gql`
     payload: String!
     isMine: Boolean!
     likes: Int!
-    createdAt: String!
+    createdAt: DateTime!
   }
 `;

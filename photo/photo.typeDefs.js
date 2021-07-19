@@ -8,7 +8,5 @@ export default gql`
     file: String!
     recipe: Recipe!
     recipeId: Int!
-    createdAt: String
-    updatedAt: String
   }
 `;
