@@ -12,6 +12,7 @@ export default gql`
     commentsCount: Int!
     isMine: Boolean!
     likes: Int!
+    isLiked: Boolean!
     createdAt: DateTime!
   }
 `;

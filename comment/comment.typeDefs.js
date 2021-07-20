@@ -9,6 +9,7 @@ export default gql`
     recipeId: Int!
     payload: String!
     isMine: Boolean!
+    isLiked: Boolean!
     likes: Int!
     createdAt: DateTime!
   }

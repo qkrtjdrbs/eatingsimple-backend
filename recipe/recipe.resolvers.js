@@ -12,6 +12,26 @@ export default {
       if (!loggedInUser) return false;
       return userId === loggedInUser.id;
     },
+    isLiked: async ({ id }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      const ok = await client.recipeLike.findUnique({
+        where: {
+          recipeId_userId: {
+            recipeId: id,
+            userId: loggedInUser.id,
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+      if (ok) {
+        return true;
+      }
+      return false;
+    },
     likes: ({ id }) => client.recipeLike.count({ where: { recipeId: id } }),
   },
 };
