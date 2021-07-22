@@ -9,10 +9,7 @@ export default {
           where: { id: recipeId },
         });
         if (!existRecipe) {
-          return {
-            ok: false,
-            error: "Recipe not exist.",
-          };
+          return null;
         }
         const newComment = await client.comment.create({
           data: {
@@ -30,15 +27,9 @@ export default {
           },
         });
         if (newComment) {
-          return {
-            ok: true,
-            id: newComment.id,
-          };
+          return newComment;
         }
-        return {
-          ok: false,
-          error: "Fail to write comment",
-        };
+        return null;
       }
     ),
   },

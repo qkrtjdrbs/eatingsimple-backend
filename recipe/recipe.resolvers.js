@@ -5,7 +5,10 @@ export default {
     photos: ({ id }) => client.photo.findMany({ where: { recipeId: id } }),
     user: ({ userId }) => client.user.findUnique({ where: { id: userId } }),
     comments: ({ id }) =>
-      client.comment.findMany({ where: { recipe: { id } } }),
+      client.comment.findMany({
+        where: { recipe: { id } },
+        orderBy: { createdAt: "asc" },
+      }),
     commentsCount: ({ id }) =>
       client.comment.count({ where: { recipe: { id } } }),
     isMine: ({ userId }, _, { loggedInUser }) => {
