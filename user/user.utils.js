@@ -31,7 +31,7 @@ export const protectedResolver =
       }
       return {
         ok: false,
-        error: "User's not logged in",
+        error: "로그인 상태가 아닙니다",
       };
     }
     return ourResolver(root, args, context, info);
