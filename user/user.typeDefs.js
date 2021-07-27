@@ -10,6 +10,10 @@ export default gql`
     bio: String
     avatar: String
     isMe: Boolean!
+    recipes: [Recipe]
+    recipesCount: Int!
+    comments: [Comment]
+    commentsCount: Int!
     createdAt: DateTime!
   }
 `;
