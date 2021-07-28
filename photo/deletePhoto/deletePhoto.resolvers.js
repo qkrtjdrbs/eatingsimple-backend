@@ -3,18 +3,17 @@ import { protectedResolver } from "../../user/user.utils";
 
 export default {
   Mutation: {
-    deletePhoto: protectedResolver(async (_, { files }, { loggedInUser }) => {
+    deletePhoto: protectedResolver(async (_, { file }, { loggedInUser }) => {
       try {
-        files.forEach(async (file) => {
-          const photo = await client.photo.findUnique({ where: { file } });
-          if (!photo) {
-            throw new Error("Photo not exist");
-          }
-          if (photo.userId !== loggedInUser.id) {
-            throw new Error("Not your photo");
-          }
-          await client.photo.delete({ where: { file } });
-        });
+        const photo = await client.photo.findUnique({ where: { file } });
+        if (!photo) {
+          throw new Error("사진이 존재하지 않습니다");
+        }
+        if (photo.userId !== loggedInUser.id) {
+          throw new Error("사진의 소유자가 아닙니다");
+        }
+        await client.photo.delete({ where: { file } });
+
         return {
           ok: true,
         };
