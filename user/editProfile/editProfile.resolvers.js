@@ -17,7 +17,7 @@ export default {
               where: { email },
             });
             if (emailIsNotValid && emailIsNotValid.id !== loggedInUser.id) {
-              throw new Error("This email already exist.");
+              throw new Error("이미 존재하는 이메일 입니다");
             }
           }
           // hash password
@@ -28,9 +28,9 @@ export default {
           // Upload Avatar to s3
           let newAvatar = null;
           if (avatar) {
-            newAvatar = await uploadToS3(avatar, loggedInUser.id, "avatars");
+            newAvatar = await uploadToS3(avatar[0], loggedInUser.id, "avatars");
           }
-          await client.user.update({
+          const user = await client.user.update({
             where: {
               id: loggedInUser.id,
             },
@@ -42,14 +42,9 @@ export default {
               ...(uglyPassword && { password: uglyPassword }),
             },
           });
-          return {
-            ok: true,
-          };
+          return user;
         } catch (e) {
-          return {
-            ok: false,
-            error: e.message,
-          };
+          return null;
         }
       }
     ),
