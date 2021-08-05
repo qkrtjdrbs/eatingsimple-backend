@@ -43,10 +43,10 @@ export default {
       if (!loggedInUser) {
         return false;
       }
-      const ok = await client.commentLike.findUnique({
+      const ok = await client.nestedCommentLike.findUnique({
         where: {
-          commentId_userId: {
-            commentId: id,
+          nestedCommentId_userId: {
+            nestedCommentId: id,
             userId: loggedInUser.id,
           },
         },
@@ -60,6 +60,6 @@ export default {
       return false;
     },
     likes: ({ id }) =>
-      client.commentLike.count({ where: { nestedCommentId: id } }),
+      client.nestedCommentLike.count({ where: { nestedCommentId: id } }),
   },
 };

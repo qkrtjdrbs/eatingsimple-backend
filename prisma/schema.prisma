@@ -11,21 +11,22 @@ generator client {
 }
 
 model User {
-  id            Int             @id @default(autoincrement())
-  name          String
-  username      String          @unique
-  email         String          @unique
-  password      String
-  bio           String?
-  avatar        String?
-  recipes       Recipe[]
-  recipeLikes   RecipeLike[]
-  photos        Photo[]
-  comments      Comment[]
-  commentLikes  CommentLike[]
-  NestedComment NestedComment[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  id                Int                 @id @default(autoincrement())
+  name              String
+  username          String              @unique
+  email             String              @unique
+  password          String
+  bio               String?
+  avatar            String?
+  recipes           Recipe[]
+  recipeLikes       RecipeLike[]
+  photos            Photo[]
+  comments          Comment[]
+  commentLikes      CommentLike[]
+  NestedComment     NestedComment[]
+  NestedCommentLike NestedCommentLike[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Recipe {
@@ -64,16 +65,24 @@ model RecipeLike {
 }
 
 model CommentLike {
+  id        Int      @id @default(autoincrement())
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+
+  @@unique([commentId, userId])
+}
+
+model NestedCommentLike {
   id              Int            @id @default(autoincrement())
-  comment         Comment        @relation(fields: [commentId], references: [id])
-  commentId       Int
   user            User           @relation(fields: [userId], references: [id])
   userId          Int
   NestedComment   NestedComment? @relation(fields: [nestedCommentId], references: [id])
   nestedCommentId Int?
   createdAt       DateTime       @default(now())
 
-  @@unique([commentId, userId])
   @@unique([nestedCommentId, userId])
 }
 
@@ -91,13 +100,13 @@ model Comment {
 }
 
 model NestedComment {
-  id             Int           @id @default(autoincrement())
-  user           User          @relation(fields: [userId], references: [id])
-  userId         Int
-  payload        String
-  commentLikes   CommentLike[]
-  nestingComment Comment       @relation(fields: [nestingId], references: [id])
-  nestingId      Int
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id                Int                 @id @default(autoincrement())
+  user              User                @relation(fields: [userId], references: [id])
+  userId            Int
+  payload           String
+  NestedCommentLike NestedCommentLike[]
+  nestingComment    Comment             @relation(fields: [nestingId], references: [id])
+  nestingId         Int
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }

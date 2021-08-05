@@ -5,6 +5,9 @@ export default {
   Mutation: {
     deleteComment: protectedResolver(async (_, { id }, { loggedInUser }) => {
       const comment = await client.comment.findUnique({ where: { id } });
+      const nestedComments = await client.comment
+        .findUnique({ where: { id } })
+        .NestedComment();
       if (!comment) {
         return {
           ok: false,
@@ -14,6 +17,17 @@ export default {
         return {
           ok: false,
           error: "Not authorized.",
+        };
+      }
+      if (nestedComments.length) {
+        await client.comment.update({
+          where: { id },
+          data: {
+            payload: "[삭제된 댓글 입니다]",
+          },
+        });
+        return {
+          ok: true,
         };
       }
       await client.commentLike.deleteMany({ where: { commentId: id } });
