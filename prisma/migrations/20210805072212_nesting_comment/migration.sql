@@ -1,0 +1,2 @@
+-- AddForeignKey
+ALTER TABLE "Comment" ADD FOREIGN KEY ("id") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
