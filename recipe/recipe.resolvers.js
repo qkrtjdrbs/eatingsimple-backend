@@ -1,5 +1,7 @@
 import client from "../client";
 
+const DELETED_COMMENT = "[삭제된 댓글입니다]";
+
 export default {
   Recipe: {
     photos: ({ id }) => client.photo.findMany({ where: { recipeId: id } }),
@@ -9,8 +11,12 @@ export default {
         where: { recipe: { id } },
         orderBy: { createdAt: "asc" },
       }),
-    commentsCount: ({ id }) =>
-      client.comment.count({ where: { recipe: { id } } }),
+    commentsCount: async ({ id }) => {
+      const comment = await client.comment.findMany({
+        where: { recipeId: id, payload: { not: DELETED_COMMENT } },
+      });
+      return comment.length;
+    },
     isMine: ({ userId }, _, { loggedInUser }) => {
       if (!loggedInUser) return false;
       return userId === loggedInUser.id;

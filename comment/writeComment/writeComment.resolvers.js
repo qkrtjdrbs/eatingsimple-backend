@@ -11,6 +11,7 @@ export default {
         if (!existRecipe) {
           return null;
         }
+        if (payload === "[삭제된 댓글입니다]") return null;
         const newComment = await client.comment.create({
           data: {
             user: {

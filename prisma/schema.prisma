@@ -105,7 +105,7 @@ model NestedComment {
   userId            Int
   payload           String
   nestedCommentLike NestedCommentLike[]
-  nestingComment    Comment             @relation(fields: [nestingId], references: [id])
+  nestingComment    Comment?            @relation(fields: [nestingId], references: [id])
   nestingId         Int
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt

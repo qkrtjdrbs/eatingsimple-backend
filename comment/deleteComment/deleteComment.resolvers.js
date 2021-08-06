@@ -7,7 +7,7 @@ export default {
       const comment = await client.comment.findUnique({ where: { id } });
       const nestedComments = await client.comment
         .findUnique({ where: { id } })
-        .NestedComment();
+        .nestedComment();
       if (!comment) {
         return {
           ok: false,
@@ -23,7 +23,7 @@ export default {
         await client.comment.update({
           where: { id },
           data: {
-            payload: "[삭제된 댓글 입니다]",
+            payload: "[삭제된 댓글입니다]",
           },
         });
         return {
