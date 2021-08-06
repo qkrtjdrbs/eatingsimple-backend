@@ -6,7 +6,12 @@ export default {
     recipe: ({ recipeId }) =>
       client.recipe.findUnique({ where: { id: recipeId } }),
     nestedComments: ({ id }) =>
-      client.nestedComment.findMany({ where: { nestingId: id } }),
+      client.nestedComment.findMany({
+        where: { nestingId: id },
+        orderBy: { createdAt: "asc" },
+      }),
+    nestedCommentsCount: ({ id }) =>
+      client.nestedComment.count({ where: { nestingId: id } }),
     isMine: ({ userId }, _, { loggedInUser }) => {
       if (!loggedInUser) return false;
       return userId === loggedInUser.id;

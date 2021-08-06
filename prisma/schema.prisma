@@ -23,8 +23,8 @@ model User {
   photos            Photo[]
   comments          Comment[]
   commentLikes      CommentLike[]
-  NestedComment     NestedComment[]
-  NestedCommentLike NestedCommentLike[]
+  nestedComment     NestedComment[]
+  nestedCommentLike NestedCommentLike[]
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
@@ -79,7 +79,7 @@ model NestedCommentLike {
   id              Int            @id @default(autoincrement())
   user            User           @relation(fields: [userId], references: [id])
   userId          Int
-  NestedComment   NestedComment? @relation(fields: [nestedCommentId], references: [id])
+  nestedComment   NestedComment? @relation(fields: [nestedCommentId], references: [id])
   nestedCommentId Int?
   createdAt       DateTime       @default(now())
 
@@ -94,7 +94,7 @@ model Comment {
   recipeId      Int
   payload       String
   commentLikes  CommentLike[]
-  NestedComment NestedComment[]
+  nestedComment NestedComment[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
@@ -104,7 +104,7 @@ model NestedComment {
   user              User                @relation(fields: [userId], references: [id])
   userId            Int
   payload           String
-  NestedCommentLike NestedCommentLike[]
+  nestedCommentLike NestedCommentLike[]
   nestingComment    Comment             @relation(fields: [nestingId], references: [id])
   nestingId         Int
   createdAt         DateTime            @default(now())

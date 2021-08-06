@@ -8,6 +8,7 @@ export default gql`
     recipe: Recipe!
     recipeId: Int!
     nestedComments: [NestedComment]
+    nestedCommentsCount: Int!
     payload: String!
     isMine: Boolean!
     isLiked: Boolean!
