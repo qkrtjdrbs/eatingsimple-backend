@@ -10,6 +10,7 @@ export default gql`
     userId: Int!
     comments: [Comment]
     commentsCount: Int!
+    tags: [Tag]
     isMine: Boolean!
     likes: Int!
     isLiked: Boolean!

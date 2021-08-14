@@ -5,8 +5,12 @@ import { protectedResolver } from "../../user/user.utils";
 export default {
   Mutation: {
     createRecipe: protectedResolver(
-      async (_, { title, content, files }, { loggedInUser }) => {
+      async (_, { title, content, files, tags }, { loggedInUser }) => {
         try {
+          let tagsList = null;
+          if (tags?.length) {
+            tagsList = tags.map((tag) => ({ where: { tag }, create: { tag } }));
+          }
           const newRecipe = await client.recipe.create({
             data: {
               title,
@@ -16,6 +20,11 @@ export default {
                   id: loggedInUser.id,
                 },
               },
+              ...(tags?.length > 0 && {
+                tags: {
+                  connectOrCreate: tagsList,
+                },
+              }),
             },
           });
           files?.forEach(async (file) => {

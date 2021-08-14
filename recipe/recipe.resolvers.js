@@ -42,5 +42,6 @@ export default {
       return false;
     },
     likes: ({ id }) => client.recipeLike.count({ where: { recipeId: id } }),
+    tags: ({ id }) => client.recipe.findUnique({ where: { id } }).tags(),
   },
 };
