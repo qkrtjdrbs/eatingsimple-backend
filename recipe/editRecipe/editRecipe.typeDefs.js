@@ -7,6 +7,7 @@ export default gql`
       title: String
       content: String
       files: [Upload]
+      tags: [String]
     ): MutationResult!
   }
 `;

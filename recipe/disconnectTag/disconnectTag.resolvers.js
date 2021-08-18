@@ -3,9 +3,18 @@ import { protectedResolver } from "../../user/user.utils";
 
 export default {
   Mutation: {
-    deleteTag: protectedResolver(async (_, { tag }) => {
+    disconnectTag: protectedResolver(async (_, { id, tag }) => {
       try {
-        await client.tag.delete({ where: { tag } });
+        await client.recipe.update({
+          where: { id },
+          data: {
+            tags: {
+              disconnect: {
+                tag,
+              },
+            },
+          },
+        });
         return {
           ok: true,
         };
