@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "preinstall": "npx npm-force-resolutions",
-    "dev": "nodemon --exec babel-node server",
+    "dev": "nodemon --exec babel-node server --delay 2",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio"
   },
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/qkrtjdrbs/eatingsimple-backend#readme",
   "dependencies": {
-    "@prisma/client": "^2.21.2",
+    "@prisma/client": "^2.29.1",
     "apollo-server": "^2.23.0",
     "apollo-server-express": "^2.24.0",
     "aws-sdk": "^2.904.0",
@@ -40,6 +40,6 @@
     "@babel/node": "^7.14.7",
     "@babel/preset-env": "^7.14.7",
     "nodemon": "^2.0.9",
-    "prisma": "^2.26.0"
+    "prisma": "^2.29.1"
   }
 }
