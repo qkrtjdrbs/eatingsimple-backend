@@ -25,6 +25,8 @@ model User {
   commentLikes      CommentLike[]
   nestedComment     NestedComment[]
   nestedCommentLike NestedCommentLike[]
+  notification      Notification?
+  message           Message[]
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }
@@ -117,4 +119,22 @@ model NestedComment {
   nestingId         Int
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
+}
+
+model Notification {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  message   Message[]
+  messageId Int
+}
+
+model Message {
+  id             Int          @id @default(autoincrement())
+  kind           String
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+  notification   Notification @relation(fields: [notificationId], references: [id])
+  notificationId Int
+  createdAt      DateTime     @default(now())
 }
