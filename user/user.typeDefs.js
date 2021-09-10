@@ -14,6 +14,8 @@ export default gql`
     recipesCount: Int!
     comments: [Comment]
     commentsCount: Int!
+    notifications: [Notification]
+    notificationsCount: Int!
     createdAt: DateTime!
   }
 `;

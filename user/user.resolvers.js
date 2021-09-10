@@ -10,5 +10,9 @@ export default {
     recipesCount: ({ id }) => client.recipe.count({ where: { userId: id } }),
     comments: ({ id }) => client.comment.findMany({ where: { userId: id } }),
     commentsCount: ({ id }) => client.comment.count({ where: { userId: id } }),
+    notifications: ({ id }) =>
+      client.notification.findMany({ where: { userId: id } }),
+    notificationsCount: ({ id }) =>
+      client.notification.count({ where: { userId: id } }),
   },
 };

@@ -28,6 +28,30 @@ export default {
           },
         });
         if (newComment) {
+          const newNotification = await client.notification.create({
+            data: {
+              user: {
+                connect: {
+                  id: existRecipe.userId,
+                },
+              },
+            },
+          });
+          await client.message.create({
+            data: {
+              kind: "newComment",
+              user: {
+                connect: {
+                  id: loggedInUser.id,
+                },
+              },
+              notification: {
+                connect: {
+                  id: newNotification?.id,
+                },
+              },
+            },
+          });
           return newComment;
         }
         return null;
