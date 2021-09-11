@@ -15,5 +15,6 @@ export default gql`
     user: User!
     userId: Int
     message: [Message]
+    read: Boolean!
   }
 `;

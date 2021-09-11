@@ -126,6 +126,7 @@ model Notification {
   user    User      @relation(fields: [userId], references: [id])
   userId  Int
   message Message[]
+  read    Boolean   @default(false)
 }
 
 model Message {
