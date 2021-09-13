@@ -1,4 +1,6 @@
 import client from "../../client";
+import { NEW_NOTIFICATION } from "../../constants";
+import pubsub from "../../pubsub";
 import { protectedResolver } from "../../user/user.utils";
 
 export default {
@@ -51,6 +53,9 @@ export default {
                 },
               },
             },
+          });
+          pubsub.publish(NEW_NOTIFICATION, {
+            notificationUpdates: { ...newNotification },
           });
           return newComment;
         }
