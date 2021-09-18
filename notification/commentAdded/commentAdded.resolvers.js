@@ -4,11 +4,11 @@ import pubsub from "../../pubsub";
 
 export default {
   Subscription: {
-    notificationUpdates: {
+    commentAdded: {
       subscribe: withFilter(
-        () => pubsub.asyncIterator(NEW_NOTIFICATION),
-        ({ notificationUpdates }, { id }) => {
-          return notificationUpdates.id === id;
+        () => pubsub.asyncIterator([NEW_NOTIFICATION]),
+        ({ commentAdded }, { id }) => {
+          return commentAdded.id === id;
         }
       ),
     },

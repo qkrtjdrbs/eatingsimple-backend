@@ -55,7 +55,7 @@ export default {
             },
           });
           pubsub.publish(NEW_NOTIFICATION, {
-            notificationUpdates: { ...newNotification },
+            commentAdded: { ...newNotification },
           });
           return newComment;
         }
