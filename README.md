@@ -47,4 +47,6 @@ Tag
 
 Notification
 ------------
-- [ ] commentNotification : 내 게시물에 댓글 달릴 경우 알람(구현 예정)
+- [x] commentAdded : 누군가 나의 레시피에 댓글을 달았을 때 publish됨  
+- [x] confirmNotification : 알람을 확인하기    
+- [x] deleteNotification : 알람을 삭제하기  
